@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="/engine/engine.css" rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="canv"></canvas>
+    <script type="module">
+        import "/engine/engine.js"
+        import mainScene from "./blink.js"
+        SceneManager.addScene(mainScene);
+        start("Blink")
+    </script>
+</body>
+
+</html>
