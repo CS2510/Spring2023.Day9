@@ -10,7 +10,12 @@
     <script type="module">
         import "/engine/engine.js"
         import "./pong.js"
-        SceneManager.testScenes(allScenes, "Pong", {maxFrames:100})
+        SceneManager.testScenes(allScenes, "Pong", {
+            maxFrames: 100,
+            done: (ctx) => {
+                passTests()
+            }
+        })
     </script>
 </body>
 

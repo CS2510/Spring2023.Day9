@@ -8,9 +8,9 @@ class SceneManager {
         start(title, options)
     }
 
-    static testScenes(scenes, title){
+    static testScenes(scenes, title, options){
         SceneManager.setScenes(scenes)
-        test(title)
+        test(title, options)
     }
 
     static setScenes(scenes){

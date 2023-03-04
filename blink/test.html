@@ -16,11 +16,7 @@
       done: (ctx) => {
         let data = ctx.getImageData(0, 0, 1, 1).data;
         if (data[0] == 0 && data[1] == 255 && data[2] == 0) {
-          ctx.font = "20px Courier"
-          ctx.fillStyle = "black";
-          ctx.fillText("Passed Tests", 9, 20)
-          ctx.fillStyle = "lightgray";
-          ctx.fillText("Passed Tests", 10, 21)
+          passTests()
         }
       }
     })

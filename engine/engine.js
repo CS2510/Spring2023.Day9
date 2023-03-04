@@ -74,17 +74,17 @@ function engineUpdate() {
         scene.start()
         SceneManager.changedSceneFlag = false
     }
-    
-    for(let gameObject of scene.gameObjects){
-        if(gameObject.start && !gameObject.started){
+
+    for (let gameObject of scene.gameObjects) {
+        if (gameObject.start && !gameObject.started) {
             gameObject.start()
             gameObject.started = true
         }
     }
 
-    for(let gameObject of scene.gameObjects){
-        for(let component of gameObject.components){
-            if(component.start && !component.started){
+    for (let gameObject of scene.gameObjects) {
+        for (let component of gameObject.components) {
+            if (component.start && !component.started) {
                 component.start()
                 component.started = true
             }
@@ -93,27 +93,27 @@ function engineUpdate() {
 
     //Handle destroy here
 
-    for(let gameObject of scene.gameObjects){
-        for(let component of gameObject.components){
-            if(component.update){
+    for (let gameObject of scene.gameObjects) {
+        for (let component of gameObject.components) {
+            if (component.update) {
                 component.update()
             }
         }
     }
 
-    
+
 
 }
 
 function engineDraw() {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
-    
+
     let scene = SceneManager.getActiveScene()
-    
-    for(let gameObject of scene.gameObjects){
-        for(let component of gameObject.components){
-            if(component.draw){
+
+    for (let gameObject of scene.gameObjects) {
+        for (let component of gameObject.components) {
+            if (component.draw) {
                 component.draw(ctx)
             }
         }
@@ -133,20 +133,40 @@ function start(title) {
 
 }
 
-function test(title, options = {}){
-    document.title = title;
-    let maxFrames = options.maxFrames ? options.maxFrames : 100;
-    console.log("Beginning test");
-    for(let i = 0; i < maxFrames; i++){
-        engineUpdate();
-        engineDraw();
+function test(title, options = {}) {
+    try {
+        document.title = title;
+        let maxFrames = options.maxFrames ? options.maxFrames : 100;
+        console.log("Beginning test");
+        for (let i = 0; i < maxFrames; i++) {
+            engineUpdate();
+            engineDraw();
+        }
+        console.log("Ending test");
+        if (options.done) {
+            options.done(ctx);
+        }
+    } catch (exception) {
+        ctx.font = "20px Courier"
+        ctx.fillStyle = "black";
+        ctx.fillText("❌", 9, 20)
+        ctx.fillStyle = "lightgray";
+        ctx.fillText("❌", 10, 21)
+        console.log("An exception was thrown")
+        throw exception;
     }
-    console.log("Ending test");
-    if(options.done){
-        options.done(ctx);
-    }
+}
+
+function passTests() {
+    ctx.font = "20px Courier"
+    ctx.fillStyle = "black";
+    ctx.fillText("✅", 9, 20)
+    ctx.fillStyle = "lightgray";
+    ctx.fillText("✅", 10, 21)
+    console.log("Called passTests")
 }
 
 window.start = start;
 window.test = test;
+window.passTests = passTests
 window.keysDown = keysDown;
