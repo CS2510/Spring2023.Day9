@@ -15,9 +15,8 @@
       maxFrames: 255,
       done: (ctx) => {
         let data = ctx.getImageData(0, 0, 1, 1).data;
-        if (data[0] == 0 && data[1] == 255 && data[2] == 0) {
-          passTests()
-        }
+        assert(data[0] == 0 && data[1] == 255 && data[2] == 0, "The color is green.")
+        passTests()
       }
     })
   </script>
