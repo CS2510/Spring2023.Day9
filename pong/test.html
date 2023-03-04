@@ -1,3 +1,4 @@
+<!-- The main file for testing the pong game. -->
 <!DOCTYPE html>
 <html>
 
@@ -10,6 +11,10 @@
     <script type="module">
         import "/engine/engine.js"
         import "./pong.js"
+
+        //This simple test runs the game for 100 frames 
+        //and simply tests the state of the scene manager, 
+        //which should not have changed since we began.
         SceneManager.testScenes(allScenes, "Pong", {
             maxFrames: 100,
             done: (ctx) => {

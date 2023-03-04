@@ -1,3 +1,4 @@
+<!-- The main file for testing the blink game. -->
 <!DOCTYPE html>
 <html>
 
@@ -11,6 +12,9 @@
     import "/engine/engine.js"
     import mainScene from "./blink.js"
     SceneManager.addScene(mainScene);
+    //The following starts the tests.
+    //It lets the engine run 255 frames and then checks to make sure
+    //that the upper righthand pixel is perfectly green.
     test("Blink", {
       maxFrames: 255,
       done: (ctx) => {
