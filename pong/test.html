@@ -13,6 +13,7 @@
         SceneManager.testScenes(allScenes, "Pong", {
             maxFrames: 100,
             done: (ctx) => {
+                assert(SceneManager.currentSceneIndex == 0, "Scene index is 0")
                 passTests()
             }
         })

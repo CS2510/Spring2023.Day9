@@ -147,26 +147,44 @@ function test(title, options = {}) {
             options.done(ctx);
         }
     } catch (exception) {
-        ctx.font = "20px Courier"
-        ctx.fillStyle = "black";
-        ctx.fillText("❌", 9, 20)
-        ctx.fillStyle = "lightgray";
-        ctx.fillText("❌", 10, 21)
-        console.log("An exception was thrown")
+        failTest()
         throw exception;
+    }
+}
+
+function failTest() {
+    ctx.font = "20px Courier"
+    ctx.fillText("❌", 9, 20)
+    console.log("An exception was thrown")
+}
+
+
+let verboseDebug = true;
+
+function passTest(description){
+    if(verboseDebug){
+        console.log("Passed test: " + description)
     }
 }
 
 function passTests() {
     ctx.font = "20px Courier"
-    ctx.fillStyle = "black";
     ctx.fillText("✅", 9, 20)
-    ctx.fillStyle = "lightgray";
-    ctx.fillText("✅", 10, 21)
     console.log("Called passTests")
+}
+
+function assert(boolean, description = "") {
+    if (!boolean) {
+        failTest(description)
+    }
+    else {
+        if (description)
+            passTest(description)
+    }
 }
 
 window.start = start;
 window.test = test;
+window.assert = assert;
 window.passTests = passTests
 window.keysDown = keysDown;
