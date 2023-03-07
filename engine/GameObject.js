@@ -79,6 +79,15 @@ class GameObject {
         return this.components.find(c => c.name == name)
     }
 
+    /**
+     * Add a new game object to the current scene. 
+     * Note that gameObject should be a reference created with new, 
+     * not an existing game object.
+     * 
+     * The game object is added to the scene, and if the game object
+     * has a start function, start is called.
+     * @param {GameObject} gameObject 
+     */
     static instantiate(gameObject) {
         SceneManager.getActiveScene().gameObjects.push(gameObject);
         if (gameObject.start && !gameObject.started) {
