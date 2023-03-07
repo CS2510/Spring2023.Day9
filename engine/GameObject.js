@@ -4,7 +4,7 @@
  * as needed.
  * See https://docs.unity3d.com/ScriptReference/GameObject.html
  */
-class GameObject{
+class GameObject {
     /** The name of the game object */
     name = ""
     /** The list of components in the game object */
@@ -17,7 +17,7 @@ class GameObject{
      * a transform component.
      * @param {string} name The name of the new game object.
      */
-    constructor(name){
+    constructor(name) {
         this.name = name;
         this.addComponent(new Transform());
     }
@@ -26,7 +26,7 @@ class GameObject{
      * A property to get the trasform on this game object.
      * See https://docs.unity3d.com/ScriptReference/GameObject-transform.html
      * */
-    get transform(){
+    get transform() {
         return this.components[0]
     }
 
@@ -37,7 +37,7 @@ class GameObject{
      * @param {Component} component The component to add to the game object.
      * @returns this game object (makes this a fluent interface)
      */
-    addComponent(component){
+    addComponent(component) {
         this.components.push(component);
         component.parent = this;
         return this;
@@ -49,8 +49,8 @@ class GameObject{
      * @param {string} name The name to search for.
      * @returns The first game object with that name. Undefined otherwise.
      */
-    static getObjectByName(name){
-        return SceneManager.getActiveScene().gameObjects.find(gameObject=>gameObject.name == name)
+    static getObjectByName(name) {
+        return SceneManager.getActiveScene().gameObjects.find(gameObject => gameObject.name == name)
     }
 
     /**
@@ -61,7 +61,7 @@ class GameObject{
      * @param {string} name See getObjectByName
      * @returns See getObjectByName
      */
-    static find(name){
+    static find(name) {
         return GameObject.getObjectByName(name);
     }
 
@@ -75,8 +75,16 @@ class GameObject{
      * @returns The first game objecte with the name. Undefined if no
      * component is found.
      */
-    getComponent(name){
-        return this.components.find(c=>c.name == name)
+    getComponent(name) {
+        return this.components.find(c => c.name == name)
+    }
+
+    static instantiate(gameObject) {
+        SceneManager.getActiveScene().gameObjects.push(gameObject);
+        if (gameObject.start && !gameObject.started) {
+            gameObject.started = true
+            gameObject.start()
+        }
     }
 }
 
