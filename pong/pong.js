@@ -50,44 +50,41 @@ class StartScene extends Scene {
 //-----------------------------------------------------
 //Main
 
-class MainController extends Component{
-    start(){
-        //Create a new pong ball
-        let ballGameObject = new GameObject("BallGameObject")
-        let ballComponent = new BallComponent();
-        ballComponent.addListener(this)
-        ballGameObject.addComponent(ballComponent)
+class MainController extends Component {
+    start() {
+        let pointsComponent = GameObject.getObjectByName("PointsGameObject").getComponent("PointsComponent");
 
-        let circle = new Circle()
-        ballGameObject.addComponent(circle)
-        circle.fillStyle = "yellow"
-        circle.transform.sx = 5
-        GameObject.instantiate(ballGameObject)
+        for (let i = 0; i < 2; i++) {
+            //Create a new pong ball
+            let ballGameObject = new GameObject("BallGameObject")
+            let ballComponent = new BallComponent();
+            ballComponent.addListener(this)
+            ballComponent.addListener(pointsComponent)
+            ballGameObject.addComponent(ballComponent)
 
-        //Create a second pong ball
-        ballGameObject = new GameObject("BallGameObject")
-        ballComponent = new BallComponent();
-        ballComponent.addListener(this)
-        ballGameObject.addComponent(ballComponent)
-
-        circle = new Circle()
-        ballGameObject.addComponent(circle)
-        circle.fillStyle = "blue"
-        circle.transform.sx = 5
-        circle.transform.x = -25
-        GameObject.instantiate(ballGameObject)
+            let circle = new Circle()
+            ballGameObject.addComponent(circle)
+            circle.fillStyle = "yellow"
+            circle.transform.sx = 5
+            circle.transform.x = -15*i
+            GameObject.instantiate(ballGameObject)
+        }
     }
-    handleUpdate(component, eventName){
-        console.log(eventName);
-        //Check to see if there are any more pong balls in play
-        let ballGameObjects = GameObject.getObjectsByName("BallGameObject")
-        let countLive = 0;
-        for(let ballGameObject of ballGameObjects){
-            if(!ballGameObject.markedForDestroy){
-                countLive++;
+    handleUpdate(component, eventName) {
+        if (eventName == "BallOutOfBounds") {
+            //Check to see if there are any more pong balls in play
+            let ballGameObjects = GameObject.getObjectsByName("BallGameObject")
+            let countLive = 0;
+            for (let ballGameObject of ballGameObjects) {
+                if (!ballGameObject.markedForDestroy) {
+                    countLive++;
+                }
+            }
+
+            if (countLive == 0) {
+                SceneManager.changeScene(2)
             }
         }
-        console.log("I found " + countLive + " remaining pong balls")
     }
 }
 
@@ -95,6 +92,11 @@ class PointsComponent extends Component {
     name = "PointsComponent"
     start() {
         this.points = 0
+    }
+    handleUpdate(component, eventName){
+        if(eventName == "Rebound"){
+            this.points++;
+        }
     }
     update() {
 
@@ -126,8 +128,8 @@ class BallComponent extends Component {
         let paddleWidth = paddleComponent.paddleWidth;
         let paddleX = paddleComponent.transform.x;
 
-        let pointsGameObject = GameObject.getObjectByName("PointsGameObject");
-        let pointsComponent = pointsGameObject.getComponent("PointsComponent");
+        // let pointsGameObject = GameObject.getObjectByName("PointsGameObject");
+        // let pointsComponent = pointsGameObject.getComponent("PointsComponent");
 
 
 
@@ -142,11 +144,12 @@ class BallComponent extends Component {
             //Check for a collision with the paddle
             if (paddleX - paddleWidth / 2 <= this.transform.x && paddleX + paddleWidth / 2 >= this.transform.x) {
                 this.pongVY *= -1
-                pointsComponent.points++
+                //pointsComponent.points++
+                this.updateListeners("Rebound")
             }
             else {
-                this.updateListeners("BallOutOfBounds")
                 this.parent.destroy()
+                this.updateListeners("BallOutOfBounds")
             }
         }
         if (this.transform.x < this.margin) {
@@ -219,30 +222,11 @@ class WallsComponent extends Component {
 class MainScene extends Scene {
     start() {
         let pointsGameObject = new GameObject("PointsGameObject")
-        pointsGameObject.addComponent(new PointsComponent())
+        let pointsComponent = new PointsComponent()
+        pointsGameObject.addComponent(pointsComponent)
         pointsGameObject.transform.x = 0
         pointsGameObject.transform.y = 10
         this.addGameObject(pointsGameObject)
-
-
-        // let ballGameObject = new GameObject("BallGameObject")
-        // ballGameObject.addComponent(new BallComponent())
-
-        // let circle = new Circle()
-        // ballGameObject.addComponent(circle)
-        // circle.fillStyle = "yellow"
-        // circle.transform.sx = 5
-        // this.addGameObject(ballGameObject)
-
-        // ballGameObject = new GameObject("BallGameObject")
-        // ballGameObject.addComponent(new BallComponent())
-
-        // circle = new Circle()
-        // ballGameObject.addComponent(circle)
-        // circle.fillStyle = "blue"
-        // circle.transform.sx = 5
-        // circle.transform.x = -25
-        // this.addGameObject(ballGameObject)
 
 
         this.addGameObject(new GameObject("PaddleGameObject").addComponent(new PaddleComponent()))
