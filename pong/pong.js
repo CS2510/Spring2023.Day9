@@ -76,7 +76,7 @@ class BallComponent extends Component{
         this.transform.x = this.margin + this.size / 2
         this.transform.y = this.margin + this.size / 2
         this.pongVX = 3
-        this.pongVY = 2
+        this.pongVY = -2
     }
     update() {
 
@@ -191,7 +191,7 @@ class MainScene extends Scene {
         let circle = new Circle()
         ballGameObject.addComponent(circle)
         circle.fillStyle = "yellow"
-        circle.transform.sx = 10
+        circle.transform.sx = 5
         this.addGameObject(ballGameObject)
         
         
