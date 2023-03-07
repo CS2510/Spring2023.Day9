@@ -12,6 +12,9 @@ class GameObject {
     /** Whether the game object has been started. */
     started = false
 
+    /**Whether the game object has had destroy called on it */
+    markedForDestroy = false;
+
     /**
      * The constructor. This assigns a name and creates and adds
      * a transform component.
@@ -77,6 +80,15 @@ class GameObject {
      */
     getComponent(name) {
         return this.components.find(c => c.name == name)
+    }
+
+    /**
+     * Set the markedForDestroy flag on the game object
+     * The game object will be removed during the next 
+     * destroy pass in the game loop.
+     */
+    destroy(){
+        this.markedForDestroy = true;
     }
 
     /**
