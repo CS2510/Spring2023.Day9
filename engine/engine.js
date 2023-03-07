@@ -116,7 +116,7 @@ function engineUpdate() {
     //Handle destroy here
     let keptGameObjects = []
     for(let gameObject of scene.gameObjects){
-        if(!gameObject.markedForDelete){
+        if(!gameObject.markedForDestroy){
             keptGameObjects.push(gameObject)
         }
     }

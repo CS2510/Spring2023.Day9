@@ -105,7 +105,8 @@ class BallComponent extends Component{
             }
             else {
                 console.log("You are dead")
-                SceneManager.changeScene(2)
+                //SceneManager.changeScene(2)
+                this.parent.destroy()
             }
         }
         if (this.transform.x < this.margin) {
