@@ -22,6 +22,38 @@ class Component{
   started = false
 
   /**
+   * Array of components that listen for events from this component
+   */
+  listeners = []
+
+  /**
+   * Add a component as a listener to this component.
+   * The listener component should have a function called
+   * handleUpdate(component, eventName)
+   * 
+   * @param {Component} listener 
+   */
+  addListener(listener){
+    this.listeners.push(listener);
+  }
+
+  /**
+   * Call handleUpdate on all the listeners
+   * A reference to this component and an event name
+   * will be passed to each listener
+   * @param {String} eventName 
+   */
+  updateListeners(eventName){
+    for(let listener of this.listeners){
+      if(listener.handleUpdate){
+        listener.handleUpdate(this, eventName)
+      }
+    }
+  }
+
+
+
+  /**
    * To emulate the API of unity, tranform is a read-only property
    * that retrieves the the transform component on the parent
    * game object
@@ -31,6 +63,8 @@ class Component{
   }
   //Since we do not have "set transform(newTransform)" 
   //transform is read-only
+
+
 }
 
 window.Component = Component;

@@ -56,6 +56,16 @@ class GameObject {
         return SceneManager.getActiveScene().gameObjects.find(gameObject => gameObject.name == name)
     }
 
+/**
+     * Search the game objects in the active scene for any
+     * with a given name.
+     * @param {string} name The name to search for.
+     * @returns All game objects with that name. An empty array otherwise.
+     */
+    static getObjectsByName(name) {
+        return SceneManager.getActiveScene().gameObjects.filter(gameObject => gameObject.name == name)
+    }
+
     /**
      * Search for a game object by name.
      * This maps to the find function in Unity.

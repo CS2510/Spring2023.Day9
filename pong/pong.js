@@ -50,16 +50,57 @@ class StartScene extends Scene {
 //-----------------------------------------------------
 //Main
 
-class PointsComponent extends Component{
+class MainController extends Component{
+    start(){
+        //Create a new pong ball
+        let ballGameObject = new GameObject("BallGameObject")
+        let ballComponent = new BallComponent();
+        ballComponent.addListener(this)
+        ballGameObject.addComponent(ballComponent)
+
+        let circle = new Circle()
+        ballGameObject.addComponent(circle)
+        circle.fillStyle = "yellow"
+        circle.transform.sx = 5
+        GameObject.instantiate(ballGameObject)
+
+        //Create a second pong ball
+        ballGameObject = new GameObject("BallGameObject")
+        ballComponent = new BallComponent();
+        ballComponent.addListener(this)
+        ballGameObject.addComponent(ballComponent)
+
+        circle = new Circle()
+        ballGameObject.addComponent(circle)
+        circle.fillStyle = "blue"
+        circle.transform.sx = 5
+        circle.transform.x = -25
+        GameObject.instantiate(ballGameObject)
+    }
+    handleUpdate(component, eventName){
+        console.log(eventName);
+        //Check to see if there are any more pong balls in play
+        let ballGameObjects = GameObject.getObjectsByName("BallGameObject")
+        let countLive = 0;
+        for(let ballGameObject of ballGameObjects){
+            if(!ballGameObject.markedForDestroy){
+                countLive++;
+            }
+        }
+        console.log("I found " + countLive + " remaining pong balls")
+    }
+}
+
+class PointsComponent extends Component {
     name = "PointsComponent"
     start() {
         this.points = 0
     }
     update() {
-        
+
     }
     draw(ctx) {
-        
+
         //View part of MVC
         ctx.fillStyle = "green"
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
@@ -68,12 +109,12 @@ class PointsComponent extends Component{
         ctx.fillText(this.points, this.transform.x, this.transform.y);
     }
 }
-class BallComponent extends Component{
+class BallComponent extends Component {
     name = "BallComponent"
     start() {
         this.margin = 20;
         this.size = 100;
-        this.transform.x = this.margin + this.size / 2
+        this.transform.x = this.margin + this.size / 2 + this.transform.x
         this.transform.y = this.margin + this.size / 2
         this.pongVX = 3
         this.pongVY = -2
@@ -104,8 +145,7 @@ class BallComponent extends Component{
                 pointsComponent.points++
             }
             else {
-                console.log("You are dead")
-                //SceneManager.changeScene(2)
+                this.updateListeners("BallOutOfBounds")
                 this.parent.destroy()
             }
         }
@@ -127,7 +167,7 @@ class PaddleComponent extends Component {
         this.paddleWidth = 40;
     }
     update() {
-        
+
 
         //Update the paddle based on input
         if (keysDown["ArrowLeft"]) {
@@ -146,7 +186,7 @@ class PaddleComponent extends Component {
         }
     }
     draw(ctx) {
-        
+
 
         //Now draw the paddle
         ctx.beginPath()
@@ -164,7 +204,7 @@ class WallsComponent extends Component {
         this.size = 100;
     }
     draw(ctx) {
-        
+
         ctx.strokeStyle = "black"
         ctx.beginPath()
         ctx.moveTo(this.margin, this.margin)
@@ -183,20 +223,31 @@ class MainScene extends Scene {
         pointsGameObject.transform.x = 0
         pointsGameObject.transform.y = 10
         this.addGameObject(pointsGameObject)
-        
-        
-        let ballGameObject = new  GameObject("BallGameObject")
-        ballGameObject.addComponent(new BallComponent())
 
-        let circle = new Circle()
-        ballGameObject.addComponent(circle)
-        circle.fillStyle = "yellow"
-        circle.transform.sx = 5
-        this.addGameObject(ballGameObject)
-        
-        
+
+        // let ballGameObject = new GameObject("BallGameObject")
+        // ballGameObject.addComponent(new BallComponent())
+
+        // let circle = new Circle()
+        // ballGameObject.addComponent(circle)
+        // circle.fillStyle = "yellow"
+        // circle.transform.sx = 5
+        // this.addGameObject(ballGameObject)
+
+        // ballGameObject = new GameObject("BallGameObject")
+        // ballGameObject.addComponent(new BallComponent())
+
+        // circle = new Circle()
+        // ballGameObject.addComponent(circle)
+        // circle.fillStyle = "blue"
+        // circle.transform.sx = 5
+        // circle.transform.x = -25
+        // this.addGameObject(ballGameObject)
+
+
         this.addGameObject(new GameObject("PaddleGameObject").addComponent(new PaddleComponent()))
         this.addGameObject(new GameObject("WallsGameObject").addComponent(new WallsComponent()))
+        this.addGameObject(new GameObject("ControllerGameObject").addComponent(new MainController()))
     }
 }
 
