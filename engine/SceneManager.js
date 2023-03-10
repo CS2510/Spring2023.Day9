@@ -16,6 +16,8 @@ class SceneManager {
     /** The index of the current scene. */
     static currentSceneIndex = 0
 
+
+
     /** Track whether we change scenes during the previous frame */
     static changedSceneFlag = true
 
@@ -49,7 +51,7 @@ class SceneManager {
      */
     static setScenes(scenes){
         //Same as addScenes, but we clear any scenes first
-        SceneManager.currentSceneIndex = 0;
+        SceneManager.currentSceneIndex = 1;
         SceneManager.changedScene = true;
         SceneManager.scenes = []
         SceneManager.addScenes(scenes);
