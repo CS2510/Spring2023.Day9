@@ -1,24 +1,16 @@
-//The code for our example game
-class ExampleComponent extends Component {
-  start() {
-    this.transform.x = 100;
-    this.transform.y = 100;
-    this.transform.sx = 50;
-    this.transform.sy = 25;
-    let component = this.parent.getComponent("Rectangle");
-    component.fillStyle = "black"
-  }
-  update() {
-  }
-  
-}
-
 class ExampleScene extends Scene {
   start() {
     this.addGameObject(
-      new GameObject("ExampleGameObject")
-      .addComponent(new Rectangle())
-      .addComponent(new ExampleComponent())
+      new GameObject("ExampleRectangle")
+      .addComponent(new Rectangle("black")),
+      new Vector2(100,100),
+      new Vector2(50,25)
+    )
+    this.addGameObject(
+      new GameObject("ExampleCircle")
+      .addComponent(new Circle("black")),
+      new Vector2(300,300),
+      new Vector2(50,25)
     )
   }
 }

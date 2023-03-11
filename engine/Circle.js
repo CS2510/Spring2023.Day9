@@ -8,6 +8,11 @@ class Circle extends Component {
   /** The fill color of the component */
   fillStyle = "white"
 
+  constructor(fillStyle = "white"){
+    super();
+    this.fillStyle = fillStyle
+  }
+
   /**
    * Draw the circle to the given context.
    * @param {2DContext} ctx The context to draw to.

@@ -8,6 +8,11 @@ class Rectangle extends Component {
   /** The fill color of the component */
   fillStyle = "white"
 
+  constructor(fillStyle = "white"){
+    super()
+    this.fillStyle = fillStyle;
+  }
+
   /**
    * Draw the rectangle to the given context.
    * @param {2DContext} ctx The context to draw to.
