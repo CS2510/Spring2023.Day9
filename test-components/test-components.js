@@ -24,8 +24,8 @@ class ExampleScene extends Scene {
       new GameObject("ExampleFromToLine")
         .addComponent(
           new Line("Green", 15)),
-      Transform.fromTo(0, 0, 100, 100
-      ));
+      Transform.fromTo(0, 0, 100, 100)
+    );
   }
 }
 
