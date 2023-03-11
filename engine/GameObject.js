@@ -32,6 +32,9 @@ class GameObject {
     get transform() {
         return this.components[0]
     }
+    set transform(t){
+        this.components[0] = t;
+    }
 
     /**
      * Add a component to the game obect and assign its parent 

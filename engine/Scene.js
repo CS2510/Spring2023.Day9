@@ -17,6 +17,7 @@ class Scene {
    * @param {Vector2} translate The initial translation value. If no value is provided, the tranlation is (0,0)
    * @param {Vector2} scale The initial scale value. If no value is given, the scale is (1,1)
    * @param {Number} rotation The initial rotation value. If no value is given, the rotation is 0
+   * @returns A reference to the game object (to make a fluent interface)
    */
   addGameObject(gameObject, translate = Vector2.zero, scale = Vector2.one, rotation = 0){
       this.gameObjects.push(gameObject);
@@ -30,6 +31,19 @@ class Scene {
           gameObject.started = true
           gameObject.start()
       }
+
+      return gameObject;
+  }
+
+  /**
+   * Add a new game object to the scene with the given transform
+   * @param {*} gameObject The game object to add.
+   * @param {*} transform The transform for the new game object. Defaults to a new transform.
+   * @returns A reference to the game object (to make a fluent interface)
+   */
+  addGameObjectTransform(gameObject, transform = new Transform()){
+    this.gameObjects.push(gameObject);
+    gameObject.transform = transform;
   }
 }
 
