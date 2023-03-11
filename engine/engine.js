@@ -4,6 +4,7 @@ import "./Scene.js"
 import "./GameObject.js"
 import "./Transform.js"
 import "./Circle.js"
+import "./Rectangle.js"
 
 //True if the gamee is paused, false otherwise
 let pause = false
