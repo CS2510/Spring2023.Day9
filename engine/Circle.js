@@ -6,11 +6,24 @@ class Circle extends Component {
   name = "Circle"
 
   /** The fill color of the component */
-  fillStyle = "white"
+  fillStyle
+  
+  /** The stroke color of the component */
+  strokeStyle
 
-  constructor(fillStyle = "white"){
+  /** The width of the stroke */
+  lineWidth
+
+  /**
+   * Create a circle component. 
+   * Has an optional color for fillStyle
+   * @param {Color} fillStyle 
+   */
+  constructor(fillStyle = "white", strokeStyle = "transparent", lineWidth = 1){
     super();
     this.fillStyle = fillStyle
+    this.strokeStyle = strokeStyle
+    this.lineWidth = lineWidth;
   }
 
   /**
@@ -20,11 +33,14 @@ class Circle extends Component {
   draw(ctx) {
     //Set the fill style
     ctx.fillStyle = this.fillStyle
+    ctx.strokeStyle = this.strokeStyle
+    ctx.lineWidth = this.lineWidth
 
     // Draw the circle
     ctx.beginPath()
     ctx.arc(this.transform.x, this.transform.y, this.transform.sx, 0, Math.PI * 2)
     ctx.fill()
+    ctx.stroke();
   }
 }
 

@@ -1,12 +1,9 @@
 /**
  * A circle engine-level component
  */
-class Rectangle extends Component {
+class Line extends Component {
   /** The name of the component */
-  name = "Rectangle"
-
-  /** The fill color. Defaults to white. */
-  fillStyle
+  name = "Line"
 
   /** The color of the stroke. Defaults to transparent. */
   strokeStyle
@@ -14,9 +11,8 @@ class Rectangle extends Component {
   /** The width of the stroke */
   lineWidth
 
-  constructor(fillStyle = "white", strokeStyle = "transparent", lineWidth = 1){
+  constructor(strokeStyle = "transparent", lineWidth = 1){
     super()
-    this.fillStyle = fillStyle;
     this.strokeStyle = strokeStyle
     this.lineWidth = lineWidth
   }
@@ -26,18 +22,24 @@ class Rectangle extends Component {
    * @param {2DContext} ctx The context to draw to.
    */
   draw(ctx) {
-    //Set the fill style
-    ctx.fillStyle = this.fillStyle
+    //Set the line style
     ctx.strokeStyle = this.strokeStyle
     ctx.lineWidth = this.lineWidth
 
-    // Draw the rectangle
+
+    let startX = -Math.cos(this.transform.r)*this.transform.sx+this.transform.x
+    let startY = -Math.sin(this.transform.r)*this.transform.sx+this.transform.y
+
+    let endX = Math.cos(this.transform.r)*this.transform.sx+this.transform.x
+    let endY = Math.sin(this.transform.r)*this.transform.sx+this.transform.y
+    
+    // Draw the line
     ctx.beginPath()
-    ctx.rect(-this.transform.sx/2 + this.transform.x, -this.transform.sy/2 + this.transform.y,this.transform.sx, this.transform.sy);
-    ctx.fill()
+    ctx.moveTo(endX, endY);
+    ctx.lineTo(startX, startY);
     ctx.stroke()
   }
 }
 
 //Add rectangle to the global namespace.
-window.Rectangle = Rectangle;
+window.Line = Line;

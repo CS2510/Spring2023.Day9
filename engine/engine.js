@@ -5,6 +5,7 @@ import "./GameObject.js"
 import "./Transform.js"
 import "./Circle.js"
 import "./Rectangle.js"
+import "./Line.js"
 import "./Vector2.js"
 
 //True if the gamee is paused, false otherwise
