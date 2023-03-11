@@ -56,12 +56,12 @@ class GameObject {
         return SceneManager.getActiveScene().gameObjects.find(gameObject => gameObject.name == name)
     }
 
-/**
-     * Search the game objects in the active scene for any
-     * with a given name.
-     * @param {string} name The name to search for.
-     * @returns All game objects with that name. An empty array otherwise.
-     */
+    /**
+         * Search the game objects in the active scene for any
+         * with a given name.
+         * @param {string} name The name to search for.
+         * @returns All game objects with that name. An empty array otherwise.
+         */
     static getObjectsByName(name) {
         return SceneManager.getActiveScene().gameObjects.filter(gameObject => gameObject.name == name)
     }
@@ -97,7 +97,7 @@ class GameObject {
      * The game object will be removed during the next 
      * destroy pass in the game loop.
      */
-    destroy(){
+    destroy() {
         this.markedForDestroy = true;
     }
 

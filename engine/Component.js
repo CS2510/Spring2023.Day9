@@ -63,8 +63,6 @@ class Component{
   }
   //Since we do not have "set transform(newTransform)" 
   //transform is read-only
-
-
 }
 
 window.Component = Component;
