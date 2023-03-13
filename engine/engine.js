@@ -268,6 +268,20 @@ function assert(boolean, description = "") {
     }
 }
 
+function expectException(call, description=""){
+    try{
+        call()
+        failTest(description)
+    }
+    catch(e){
+        passTest(description);
+    }
+}
+
+function testSection(description){
+    console.log("Begining test section " + description)
+}
+
 //Add certain functions to the global namespace
 //This allows us to call these functions without
 //a prefix, which better matches Unity
@@ -280,6 +294,9 @@ window.test = test;
 
 /** A reference to our unit test function */
 window.assert = assert;
+
+/** A refence to a function that marks the beginning of a set of related tests. */
+window.testSection = testSection;
 
 /** A reference to the pass tests function. 
  * Called by test code when all tests have passed 

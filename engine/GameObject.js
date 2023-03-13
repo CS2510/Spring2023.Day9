@@ -33,6 +33,8 @@ class GameObject {
         return this.components[0]
     }
     set transform(t){
+        if(!t instanceof Transform)
+            throw "Tried to set transform to a non-transform reference."
         this.components[0] = t;
     }
 
@@ -119,6 +121,18 @@ class GameObject {
             gameObject.started = true
             gameObject.start()
         }
+    }
+
+    static test(){
+        testSection("Game Object constructor")
+        let gameObject = new GameObject();
+
+        assert(gameObject.components.length == 1,
+            "Default Game Object has one component");
+        assert(gameObject.components[0] == gameObject.transform,
+            ".transform returns the first component.")
+        assert(gameObject.components[0] instanceof Transform,
+            "First component is of type component.")
     }
 }
 

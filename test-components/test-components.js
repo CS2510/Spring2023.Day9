@@ -6,6 +6,7 @@ class ExampleScene extends Scene {
       new Vector2(100, 100),
       new Vector2(50, 25)
     )
+    
     this.addGameObject(
       new GameObject("ExampleCircle")
         .addComponent(new Circle("black", "red", 10)),

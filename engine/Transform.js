@@ -43,11 +43,37 @@ class Transform extends Component{
     t.y = (startY + endY)/2
     let length = Math.sqrt((startX - endX)**2+(startY - endY)**2)
     t.sx = length/2
-    t.sy = length/2
+    t.sy = 1
     t.r = Math.atan2((endY - startY), (endX - startX));
 
     return t;
+  }
 
+  static test(){
+    //Do tests on the transform object
+    testSection("Transform Object")
+    let transform = new Transform();
+    assert(transform.x == 0, "Default transform.x is 0")
+    assert(transform.y == 0, "Default transform.y is 0")
+    assert(transform.sx == 1, "Default transform.sx is 1")
+    assert(transform.sy == 1, "Default transform.sy is 1")
+    assert(transform.r == 0, "Default transform.r is 0")
+
+    testSection("Transform fromTo")
+    let t = Transform.fromTo(0, 0, 1,0)
+    assert(t.x == .5, "fromTo generates the right x value")
+    assert(t.y == 0, "fromTo generates the right y value")
+    assert(t.sx == .5, "fromTo generates the right sx value")
+    assert(t.sy == 1, "fromTo generates the right sy value")
+    assert(t.r == 0, "fromTo generates the right r value")
+
+    testSection("Transform fromTo")
+    t = Transform.fromTo(0, 0, 1,0)
+    assert(t.x == .5, "fromTo generates the right x value")
+    assert(t.y == 0, "fromTo generates the right y value")
+    assert(t.sx == .5, "fromTo generates the right sx value")
+    assert(t.sy == 1, "fromTo generates the right sy value")
+    assert(t.r == 0, "fromTo generates the right r value")
   }
 }
 

@@ -49,7 +49,7 @@ class SceneManager {
      */
     static setScenes(scenes){
         //Same as addScenes, but we clear any scenes first
-        SceneManager.currentSceneIndex = 1;
+        SceneManager.currentSceneIndex = 0;
         SceneManager.changedScene = true;
         SceneManager.scenes = []
         SceneManager.addScenes(scenes);
